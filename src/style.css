@@ -3,6 +3,25 @@ a:focus,
 a:hover {
 	color: #ddddff;
 }
+article {
+    width: 60em;
+    max-width: 90.0%;
+    font-size: 110%;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: justify;
+    text-justify: inter-word;
+}
+img {
+    display: block;
+    margin: 0 auto;
+}
+span {
+	font-style: bold;
+}
+.figure {
+	color: #ffdb19
+}
 body {
 	background-color: #222232;
 	color: #ffffff;
@@ -25,22 +44,11 @@ p {
 	font-family: "Raleway", Arial, sans-serif;
 	font-style: normal;
 	font-weight: 400;
-	margin-left: auto;
-    margin-right: auto;
-    max-width: 90.0%;
 
 }
 .lead {
 	padding: 15px 15px;
 	text-align: center;
-}
-.chunk {
-
-    width: 60em;
-    max-width: 90.0%;
-    font-size: 110%;
-    text-align: justify;
-    text-justify: inter-word;
 }
 .foot {
 	text-align: center;
