@@ -8,7 +8,7 @@ camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight
 camera.position.z = 250;
 // scene
 scene = new THREE.Scene();
-var ambient = new THREE.AmbientLight( 0xc5c5f5 );
+var ambient = new THREE.AmbientLight( 0xf5f5c5 );
 scene.add( ambient );
 var directionalLight = new THREE.DirectionalLight( 0xffeedd );
 directionalLight.position.set( 0, 0, 20 );
@@ -17,6 +17,7 @@ scene.add( directionalLight );
 var container = document.getElementById('threejs-container');
 
 renderer = new THREE.WebGLRenderer();
+renderer.setClearColor(0xddeeff);
 renderer.setPixelRatio( window.devicePixelRatio );
 renderer.setSize( window.innerWidth/2 , window.innerHeight /2);
 container.appendChild( renderer.domElement );
@@ -75,7 +76,7 @@ var index = [6, 2, 24, 1, 3, 24, 13, 12, 5, 1, 24, 6, 26, 7, 11, 4, 12, 9, 11, 1
 
 geometry.setIndex(new THREE.BufferAttribute(new Uint16Array(index), 1));
 geometry.addAttribute('position', new THREE.BufferAttribute(vertices, 3)); 
-var material = new THREE.MeshLambertMaterial({ color: 0xffffff, wireframe: true }); 
+var material = new THREE.MeshLambertMaterial({ color: 0x000000, wireframe: true }); 
 var mesh = new THREE.Mesh(geometry, material);
 geometry.scale(10, 10, 10);
 scene.add(mesh);
