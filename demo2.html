@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="description" content="">
+	<meta name="author" content="laingawbl">
+	<link rel="icon" href="src/favicon.ico">
+	<link href='https://fonts.googleapis.com/css?family=Raleway:400,800' rel='stylesheet' type='text/css'>
+	
+		<title>Alex Laing</title>
+		
+	<link href="bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="src/style.css" rel="stylesheet">
+</head>
+
+<body>
+	<div class="body-container">
+	<h1> Demopage </h1>
+	<p class="lead"><a href="index.html"> back </a>|
+	<a href="demo3.html"> next </a></p>
+	<p class="lead"> view Shadertoy shaders - even with no internet connection! </p>
+	<p> These two shaders are running on the Shadertoy wrapper I am writing. Currently, only a small portion of the i-variables are supported.</p>
+	<article>
+	<p class = "lead"> Mandelbrot Set </p>
+	<canvas id="twgl-d">
+		
+	</canvas>
+	<pre>
+precision mediump float;
+uniform vec2 iResolution;
+uniform float iGlobalTime;
+//https://www.shadertoy.com/view/XtSSDm
+
+float X_OFFSET 	= 0.5;
+float Y_OFFSET 	= 0.5;
+float ZOOM	= 0.4;	//Scale to display the set at; reduce if it goes off the sides
+float POW_LIMIT = 3.0;	//Adjust the maximum power the cycle reaches
+float CONTOUR	= 0.2;	//Scale of the colour contours around the fractal
+
+vec2 zPow(vec2 z, float c){
+    float arg = atan(z.y, z.x);
+	return pow(length(z), c) * vec2(cos(arg*c), sin(arg*c));
+}
+
+void main()
+{
+	vec2 c = gl_FragCoord.xy - vec2(iResolution.x*X_OFFSET, iResolution.y*Y_OFFSET);
+    c /= (iResolution.y * ZOOM);
+    vec2 z = c;
+    float power = (sin(iGlobalTime * 0.2) + 1.) * POW_LIMIT + 1.; 
+    gl_FragColor = vec4(0., 0., 0., 0.);
+    for (int i = 0; i < 256; i++){
+        z = zPow(z, power) + c; //Complex squaring: z' = z^2 + c
+        if (length(z) > 2.0){
+        	gl_FragColor = vec4(float(i) * CONTOUR, float(i) * 2. * CONTOUR, 1., 0.);
+            break;
+    	}
+    }
+}
+	</pre>
+	</article>
+	
+	</div>
+	<script id="vident" type="s">
+attribute vec4 position;
+void main(){ 
+	gl_Position = position; 
+}
+	</script>
+		<script id="fd" type="s">
+precision mediump float;
+uniform vec2 iResolution;
+uniform float iGlobalTime;
+//https://www.shadertoy.com/view/XtSSDm
+
+float X_OFFSET 	= 0.5;
+float Y_OFFSET 	= 0.5;
+float ZOOM	= 0.4;	//Scale to display the set at; reduce if it goes off the sides
+float POW_LIMIT = 3.0;	//Adjust the maximum power the cycle reaches
+float CONTOUR	= 0.2;	//Scale of the colour contours around the fractal
+
+vec2 zPow(vec2 z, float c){
+    float arg = atan(z.y, z.x);
+	return pow(length(z), c) * vec2(cos(arg*c), sin(arg*c));
+}
+
+void main()
+{
+	vec2 c = gl_FragCoord.xy - vec2(iResolution.x*X_OFFSET, iResolution.y*Y_OFFSET);
+    c /= (iResolution.y * ZOOM);
+    vec2 z = c;
+    float power = (sin(iGlobalTime * 0.2) + 1.) * POW_LIMIT + 1.; 
+    gl_FragColor = vec4(0., 0., 0., 0.);
+    for (int i = 0; i < 256; i++){
+        z = zPow(z, power) + c; //Complex squaring: z' = z^2 + c
+        if (length(z) > 2.0){
+        	gl_FragColor = vec4(float(i) * CONTOUR, float(i) * 2. * CONTOUR, 1., 0.);
+            break;
+    	}
+    }
+}
+	</script>
+	
+	<script src="src/twgl.min.js"></script>
+	<script src="src/twgl-ex-mand.js"></script>
+
+</body>
+</html>
