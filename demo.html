@@ -2,30 +2,15 @@
 <html lang="en">
 <head>
 	<meta charset="utf-8">
-	<meta name="description" content="">
-	<meta name="author" content="laingawbl">
 	<link rel="icon" href="src/favicon.ico">
-	<link href='https://fonts.googleapis.com/css?family=Raleway:400,800' rel='stylesheet' type='text/css'>
-	
-		<title>Alex Laing</title>
-		
-	<link href="bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
 	<link href="src/style.css" rel="stylesheet">
 </head>
-
 <body>
-	<div class="body-container">
-	<h1> Demopage </h1>
-	<p class="lead"><a href="index.html"> back </a>|
-	<a href="demo2.html"> next </a></p>
-	<p class="lead"> view Shadertoy shaders - even with no internet connection! </p>
-	<p> These two shaders are running on the Shadertoy wrapper I am writing. Currently, only a small portion of the i-variables are supported.</p>
-	<article>
-	<p class = "lead"> HSV plasma </p>
-	<canvas id="twgl-c">
-		
-	</canvas>
-	<pre>
+	<div id="shader">
+		<h3> HSV plasma </h3>
+		<canvas id="twgl-c">
+		</canvas>
+		<pre>
 precision mediump float;
 uniform vec2 iResolution;
 uniform float iGlobalTime;
@@ -69,17 +54,15 @@ void main(){
     
 	gl_FragColor = vec4(hsv((cola + colb + colc)/3., 1., 1., palette()) ,1.0);
 }	
-	</pre>
-	</article>
-	
+		</pre>
 	</div>
-	<script id="vident" type="s">
+	<script id="v" type="s">
 attribute vec4 position;
 void main(){ 
 	gl_Position = position; 
 }
 	</script>
-	<script id="fc" type="s">
+	<script id="f" type="s">
 precision mediump float;
 uniform vec2 iResolution;
 uniform float iGlobalTime;
@@ -116,17 +99,13 @@ void main(){
     vec2 point = vec2(cos(t*a + PI/2.), sin(t*b))*4.;
     
     float cola = cos(distance(uv, point));
-                     
     float colb = cos(distance(uv + t*1., vec2(0.)));
-    
     float colc = cos(uv.x + t*.5);
     
 	gl_FragColor = vec4(hsv((cola + colb + colc)/3., 1., 1., palette()) ,1.0);
 }
-	</script>
-	
-	<script src="src/twgl.min.js"></script>
-	<script src="src/twgl-ex-plas.js"></script>
-
-</body>
+		</script>
+		<script src="src/twgl.min.js"></script>
+		<script src="src/twgl-ex.js"></script>
+	</body>
 </html>
