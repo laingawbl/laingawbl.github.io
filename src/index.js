@@ -1,37 +1,71 @@
-import { Scene, OrbitControls, PerspectiveCamera, AmbientLight, DirectionalLight, WebGLRenderer } from "three"
+import {
+  AmbientLight,
+  DirectionalLight,
+  Mesh,
+  PerspectiveCamera,
+  Scene,
+  SphereGeometry,
+  WebGLRenderer,
+  MeshStandardMaterial,
+  TextureLoader,
+} from "three";
+import { OrbitControls } from "three/examples/jsm/controls/OrbitControls";
 
-const scene = new Scene()
-const renderer = new WebGLRenderer()
-const camera = new PerspectiveCamera(45, window.innerWidth / window.innerHeight, 1, 2000)
-const ambient = new AmbientLight(0xf5f5c5)
-const directionalLight = new DirectionalLight(0xffeedd)
-const controls = new OrbitControls()
+let camera, scene, renderer;
+let mesh;
 
-camera.position.z = 250
-directionalLight.position.set(0, 0, 20)
+function init() {
+  renderer = new WebGLRenderer();
+  renderer.setClearColor(0xddeeff);
+  renderer.setPixelRatio(window.devicePixelRatio);
+  renderer.setSize(window.innerWidth / 2, window.innerHeight / 2);
 
-scene.add(ambient)
-scene.add(directionalLight)
+  camera = new PerspectiveCamera(
+    45,
+    window.innerWidth / window.innerHeight,
+    1,
+    2000
+  );
+  const ambient = new AmbientLight(0xf5f5c5);
+  const directionalLight = new DirectionalLight(0xffeedd);
 
-renderer.setClearColor(0xddeeff)
-renderer.setPixelRatio(window.devicePixelRatio)
-renderer.setSize(window.innerWidth / 2, window.innerHeight / 2)
+  camera.position.z = 250;
+  directionalLight.position.set(0, 0, 20);
 
-geometry.setIndex(new THREE.BufferAttribute(new Uint16Array(index), 1))
-geometry.addAttribute("position", new THREE.BufferAttribute(vertices, 3))
-var material = new THREE.MeshLambertMaterial({ color: 0x000000, wireframe: true })
-var mesh = new THREE.Mesh(geometry, material)
-geometry.scale(10, 10, 10)
-scene.add(mesh)
+  scene = new Scene();
+  scene.add(ambient);
+  scene.add(directionalLight);
 
-container.appendChild(renderer.domElement)
+  const controls = new OrbitControls(camera, renderer.domElement);
+  controls.minDistance = 75;
+  controls.maxDistance = 200;
+  controls.enablePan = false;
 
-var render = function () {
-  requestAnimationFrame(render)
+  const texture = new TextureLoader().load("img/fireboat.jpeg");
+  const material = new MeshStandardMaterial({ map: texture });
+  mesh = new Mesh(new SphereGeometry(30, 32, 24), material);
+  scene.add(mesh);
 
-  mesh.rotation.x += 0.005
-  mesh.rotation.y += 0.01
+  document.getElementById("three-container").appendChild(renderer.domElement);
 
-  renderer.render(scene, camera)
+  window.addEventListener("resize", onWindowResize);
 }
-render()
+
+function onWindowResize() {
+  camera.aspect = window.innerWidth / window.innerHeight;
+  camera.updateProjectionMatrix();
+
+  renderer.setSize(window.innerWidth / 2, window.innerHeight / 2);
+}
+
+function render() {
+  requestAnimationFrame(render);
+
+  mesh.rotation.x += 0.005;
+  mesh.rotation.y += 0.01;
+
+  renderer.render(scene, camera);
+}
+
+init();
+render();
