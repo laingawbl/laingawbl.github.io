@@ -1,0 +1,26 @@
+{
+  "name": "laingawbl.github.io",
+  "version": "0.1.0",
+  "description": "",
+  "private": true,
+  "scripts": {
+    "serve": "static docs",
+    "build": "webpack"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/laingawbl/laingawbl.github.io.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "devDependencies": {
+    "node-static": "^0.7.11",
+    "webpack": "^5.55.0",
+    "webpack-cli": "^4.5.0"
+  },
+  "dependencies": {
+    "lodash": "^4.17.21",
+    "three": "^0.132.2"
+  }
+}
